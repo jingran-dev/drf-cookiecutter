@@ -1,0 +1,16 @@
+{
+  "project_name": "DRF Project",
+  "project_slug": "{{ cookiecutter.project_name.lower()|replace(' ', '_')|replace('-', '_')|replace('.', '_')|trim() }}",
+  "description": "Django REST Framework API Project",
+  "author_name": "Developer",
+  "email": "example@example.com",
+  "version": "0.1.0",
+  "open_source_license": [
+    "MIT",
+    "BSD",
+    "GPLv3",
+    "Apache Software License 2.0",
+    "Not open source"
+  ],
+  "python_version": ["3.12", "3.13"]
+}
