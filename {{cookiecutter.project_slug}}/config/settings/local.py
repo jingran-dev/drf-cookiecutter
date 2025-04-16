@@ -28,3 +28,19 @@ DEBUG_TOOLBAR_CONFIG = {
 
 # Internal IPs for debug toolbar
 INTERNAL_IPS = ["127.0.0.1", "10.0.2.2"]
+
+# SILK SETTINGS
+# ------------------------------------------------------------------------------
+INSTALLED_APPS += ["silk"]
+MIDDLEWARE = ["silk.middleware.SilkyMiddleware", *MIDDLEWARE]
+
+SILKY_PYTHON_PROFILER = True
+SILKY_PYTHON_PROFILER_BINARY = True
+SILKY_MAX_RECORDED_REQUESTS = 10_000
+SILKY_MAX_RECORDED_REQUESTS_CHECK_PERCENT = 10
+SILKY_INTERCEPT_PERCENT = 100  # Record all requests by default
+SILKY_MAX_REQUEST_BODY_SIZE = -1  # No limit
+SILKY_MAX_RESPONSE_BODY_SIZE = -1  # No limit
+SILKY_AUTHENTICATION = False
+SILKY_AUTHORISATION = False
+SILKY_META = True  # Include metadata like request headers

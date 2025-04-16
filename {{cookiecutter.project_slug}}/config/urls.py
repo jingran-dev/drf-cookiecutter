@@ -41,3 +41,9 @@ if settings.DEBUG:
     urlpatterns += [
         path("__debug__/", include(debug_toolbar.urls)),
     ]
+
+# Silk URLs - only added if DEBUG is True
+if settings.DEBUG:
+    urlpatterns += [
+        path("silk/", include("silk.urls", namespace="silk")),
+    ]
