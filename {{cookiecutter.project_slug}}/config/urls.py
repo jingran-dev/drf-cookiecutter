@@ -1,5 +1,4 @@
-"""
-URL configuration for project.
+"""URL configuration for project.
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/5.1/topics/http/urls/
@@ -33,4 +32,12 @@ if settings.SHOW_API_DOCS:
             SpectacularRedocView.as_view(url_name="api:api-schema"),
             name="api-redoc",
         ),
+    ]
+
+# Debug Toolbar URLs - only added if DEBUG is True
+if settings.DEBUG:
+    import debug_toolbar
+    
+    urlpatterns += [
+        path("__debug__/", include(debug_toolbar.urls)),
     ]
