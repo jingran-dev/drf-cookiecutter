@@ -49,6 +49,7 @@ DJANGO_APPS = [
 ]
 THIRD_PARTY_APPS = [
     "rest_framework",
+    "drf_spectacular",
 ]
 LOCAL_APPS = [
     "apps.api",
@@ -153,7 +154,28 @@ REST_FRAMEWORK = {
     ],
     "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
     "PAGE_SIZE": 10,
+    "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
 }
+
+# API Documentation
+# ------------------------------------------------------------------------------
+# By Default swagger ui is available only to admin user(s). You can change permission classes to change that
+# See more configuration options at https://drf-spectacular.readthedocs.io/en/latest/settings.html#settings
+SPECTACULAR_SETTINGS = {
+    "TITLE": "{{cookiecutter.project_name}} API",
+    "DESCRIPTION": "Documentation of API endpoints of {{cookiecutter.project_name}}",
+    "VERSION": "1.0.0",
+    "SERVE_PERMISSIONS": ["rest_framework.permissions.AllowAny"],
+    "SCHEMA_PATH_PREFIX": "/api/",
+    "SWAGGER_UI_SETTINGS": {
+        "deepLinking": True,
+        "persistAuthorization": True,
+        "displayOperationId": True,
+    },
+    "COMPONENT_SPLIT_REQUEST": True,
+}
+
+SHOW_API_DOCS = env.bool("SHOW_API_DOCS", default=DEBUG)
 
 # LOGGING
 # ------------------------------------------------------------------------------
