@@ -5,10 +5,32 @@ The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/5.1/topics/http/urls/
 """
 
+from django.conf import settings
 from django.contrib import admin
 from django.urls import include, path
+from drf_spectacular.views import SpectacularAPIView, SpectacularRedocView, SpectacularSwaggerView
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("api/", include("apps.api.urls")),
+    path("", include("apps.api.api_router")),
 ]
+
+
+# API Documentation URLs - only added if SHOW_API_DOCS is True
+if settings.SHOW_API_DOCS:
+    urlpatterns += [
+        # API Schema
+        path("schema/", SpectacularAPIView.as_view(), name="api-schema"),
+        # Swagger UI
+        path(
+            "docs/",
+            SpectacularSwaggerView.as_view(url_name="api:api-schema"),
+            name="api-docs",
+        ),
+        # ReDoc UI
+        path(
+            "redoc/",
+            SpectacularRedocView.as_view(url_name="api:api-schema"),
+            name="api-redoc",
+        ),
+    ]
