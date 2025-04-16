@@ -20,10 +20,12 @@ class BaseModel(models.Model):
         verbose_name=_("Created at"),
         default=timezone.now,
         editable=False,
+        auto_now_add=True,
         help_text=_("When this record was created"),
     )
     updated_at = models.DateTimeField(
         verbose_name=_("Updated at"),
+        editable=False,
         auto_now=True,
         help_text=_("When this record was last updated"),
     )
@@ -32,13 +34,6 @@ class BaseModel(models.Model):
         abstract = True
         ordering = ["-created_at"]
         get_latest_by = "created_at"
-
-    def save(self, *args, **kwargs):
-        """
-        Override save method to update updated_at timestamp
-        """
-        self.updated_at = timezone.now()
-        super().save(*args, **kwargs)
 
 
 class SoftDeleteBaseModel(SoftDeleteMixin, BaseModel):
