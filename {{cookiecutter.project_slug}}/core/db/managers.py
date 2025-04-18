@@ -62,10 +62,11 @@ class AllObjectsManager(models.Manager):
         now = timezone.now()
         for obj in objs:
             obj.is_deleted = False
+            obj.deleted_at = None
             obj.updated_at = now
 
         return self.bulk_update(
             objs,
-            ["is_deleted", "updated_at"],
+            ["is_deleted", "deleted_at", "updated_at"],
             batch_size=batch_size,
         )

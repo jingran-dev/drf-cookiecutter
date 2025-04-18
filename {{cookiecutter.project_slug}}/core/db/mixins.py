@@ -13,14 +13,17 @@ class SoftDeleteMixin(models.Model):
         is_deleted: Soft deletion flag
     """
 
-    # Database Fields
     is_deleted = models.BooleanField(
         verbose_name=_("Deleted"),
         default=False,
         help_text=_("Whether this record is deleted"),
     )
+    deleted_at = models.DateTimeField(
+        verbose_name=_("Deleted at"),
+        null=True,
+        help_text=_("When this record was deleted"),
+    )
 
-    # Managers
     objects = ActiveManager()  # Default manager, only returns non-deleted records
     all_objects = AllObjectsManager()  # Returns all records including deleted ones
 
@@ -29,10 +32,11 @@ class SoftDeleteMixin(models.Model):
 
     def delete(self, *, using=None, keep_parents: bool = False):
         """
-        Soft delete the model instance by setting is_deleted=True.
+        Soft delete the model instance by setting is_deleted=True and deleted_at to current time.
         To perform a hard delete, use Model.objects.filter(pk=id).delete()
         """
         self.is_deleted = True
+        self.deleted_at = timezone.now()
         self.save(using=using)
 
     def hard_delete(self, *, using=None, keep_parents: bool = False):
@@ -46,4 +50,5 @@ class SoftDeleteMixin(models.Model):
         Restore a soft-deleted instance
         """
         self.is_deleted = False
+        self.deleted_at = None
         self.save(using=using)

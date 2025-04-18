@@ -9,7 +9,7 @@ class SoftDeleteQuerySet(QuerySet):
 
     def delete(self):
         """Soft delete all records in the queryset"""
-        return self.update(is_deleted=True, updated_at=timezone.now())
+        return self.update(is_deleted=True, deleted_at=timezone.now(), updated_at=timezone.now())
 
     def hard_delete(self):
         """Permanently delete all records in the queryset"""
@@ -17,7 +17,7 @@ class SoftDeleteQuerySet(QuerySet):
 
     def restore(self):
         """Restore all soft-deleted records in the queryset"""
-        return self.update(is_deleted=False, updated_at=timezone.now())
+        return self.update(is_deleted=False, deleted_at=None, updated_at=timezone.now())
 
     def bulk_create(  # noqa: PLR0913
         self,
