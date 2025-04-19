@@ -1,4 +1,4 @@
-# define an alias for the specific python version used in this file.
+# Define an alias for the specific python version used in this file.
 FROM docker.io/python:{{ cookiecutter.python_version }}-slim-bookworm AS python
 
 # Python build stage
@@ -11,18 +11,14 @@ RUN apt-get update && apt-get install --no-install-recommends -y \
   # dependencies for building Python packages
   build-essential \
   # psycopg dependencies
-  libpq-dev \
-  # curl for installing uv
-  curl
-
-# Install uv
-RUN curl -LsSf https://astral.sh/uv/install.sh | sh
+  libpq-dev
 
 # Requirements are installed here to ensure they will be cached.
-COPY ./pyproject.toml ./
+COPY ./requirements/ ./requirements/
 
 # Install Python deps
-RUN /root/.cargo/bin/uv pip install --system .
+RUN pip install --no-cache-dir -r requirements/base.txt
+RUN pip install --no-cache-dir -r requirements/develop.txt
 
 # Python 'run' stage
 FROM python AS python-run-stage
