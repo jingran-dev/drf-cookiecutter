@@ -55,7 +55,7 @@ cov: ## Run tests with coverage
 
 .PHONY: lines
 lines: ## Count lines of project code
-	find . -name "*.py" | xargs cat | wc -l
+	which cloc > /dev/null 2>&1 && cloc . || find . -name "*.py" | xargs cat | wc -l
 
 .PHONY: cleanup
 cleanup: ## Clean up project files and caches
