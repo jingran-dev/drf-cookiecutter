@@ -4,6 +4,34 @@ version = "{{ cookiecutter.version }}"
 description = "{{ cookiecutter.description }}"
 readme = "README.md"
 requires-python = ">={{ cookiecutter.python_version }}"
+{%- if cookiecutter.open_source_license != 'Not open source' %}
+license = "{{ cookiecutter.open_source_license }}"
+{%- endif %}
+authors = [
+    {name = "{{ cookiecutter.author_name }}", email = "{{ cookiecutter.email }}"}
+]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Environment :: Web Environment",
+    "Framework :: Django",
+    "Framework :: Django :: {{ cookiecutter.python_version }}",
+    "Intended Audience :: Developers",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: {{ cookiecutter.python_version }}",
+    "Topic :: Internet :: WWW/HTTP",
+    "Topic :: Internet :: WWW/HTTP :: Dynamic Content",
+{%- if cookiecutter.open_source_license == 'MIT' %}
+    "License :: OSI Approved :: MIT License",
+{%- elif cookiecutter.open_source_license == 'BSD' %}
+    "License :: OSI Approved :: BSD License",
+{%- elif cookiecutter.open_source_license == 'GPLv3' %}
+    "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
+{%- elif cookiecutter.open_source_license == 'Apache Software License 2.0' %}
+    "License :: OSI Approved :: Apache Software License",
+{%- elif cookiecutter.open_source_license == 'Not open source' %}
+    "Private :: Do Not Upload",
+{%- endif %}
+]
 dependencies = [
   "django>=5.1.7",
   "django-environ>=0.12.0",
@@ -27,6 +55,9 @@ dev = [
   "pytest-sugar>=1.0.0",
   "pytest-xdist>=3.6.1",
   "ruff>=0.11.2"
+]
+prod = [
+
 ]
 
 # ==== coverage ====
