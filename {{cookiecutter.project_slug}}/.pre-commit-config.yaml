@@ -49,6 +49,23 @@ repos:
       # Linter
       - id: ruff
         args: [--fix, --exit-non-zero-on-fix]
+        
+  # Use uv to manage dependencies and requirements files
+  - repo: https://github.com/astral-sh/uv-pre-commit
+    rev: 0.6.14
+    hooks:
+      # Update uv.lock file when pyproject.toml changes
+      - id: uv-lock
+      # Update requirements files
+      - id: uv-export
+        name: Update base requirements
+        args: [--no-hashes, --no-header, --output-file, requirements/base.txt, --no-group, dev, --no-group, prod]
+      - id: uv-export
+        name: Update development requirements
+        args: [--no-hashes, --no-header, --output-file, requirements/develop.txt, --group, dev]
+      - id: uv-export
+        name: Update production requirements
+        args: [--no-hashes, --no-header, --output-file, requirements/production.txt, --group, prod]
       # Formatter
       - id: ruff-format
 

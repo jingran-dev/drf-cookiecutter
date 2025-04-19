@@ -1,4 +1,5 @@
-from .base import *  # noqa
+# ruff: noqa: PGH004, F405
+from .base import *
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
@@ -16,3 +17,9 @@ DATABASES = {
         "NAME": ":memory:",
     }
 }
+
+# Your stuff...
+# ------------------------------------------------------------------------------
+INSTALLED_APPS = [*INSTALLED_APPS, "core.tests"]  # noqa: F405
+
+SHOW_API_DOCS = True
