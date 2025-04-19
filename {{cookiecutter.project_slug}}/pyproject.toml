@@ -148,7 +148,7 @@ extend-exclude = [
   "staticfiles/*"
 ]
 line-length = 119
-target-version = "py{{ cookiecutter.python_version }}"
+target-version = "py{{ cookiecutter.python_version|replace('.', '') }}"
 
 # ==== ruff ====
 [tool.ruff.lint]

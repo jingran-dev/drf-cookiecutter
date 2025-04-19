@@ -1,4 +1,6 @@
 # ruff: noqa: PGH004, F405
+import os
+
 from .base import *
 
 # SECURITY WARNING: don't run with debug turned on in production!
@@ -9,6 +11,16 @@ ALLOWED_HOSTS = ["*"]
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = "django-insecure-development-key-for-local-use-only"
+
+# DATABASE
+# ------------------------------------------------------------------------------
+# https://docs.djangoproject.com/en/dev/ref/settings/#databases
+DATABASES = {
+    "default": env.db(
+        "DATABASE_URL",
+        default=f"sqlite:///{BASE_DIR}/db.sqlite3",
+    )
+}
 
 # Django Debug Toolbar
 # ------------------------------------------------------------------------------
@@ -45,3 +57,7 @@ SILKY_MAX_RESPONSE_BODY_SIZE = -1  # No limit
 SILKY_AUTHENTICATION = False
 SILKY_AUTHORISATION = False
 SILKY_META = True  # Include metadata like request headers
+SILKY_PYTHON_PROFILER_RESULT_PATH = BASE_DIR / "silk"
+if not os.path.exists(SILKY_PYTHON_PROFILER_RESULT_PATH):
+    os.makedirs(SILKY_PYTHON_PROFILER_RESULT_PATH)
+

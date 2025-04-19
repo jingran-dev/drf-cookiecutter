@@ -278,3 +278,6 @@ logs/
 
 # pytest
 .pytest_cache/
+
+# Your stuff
+silk/

@@ -12,5 +12,5 @@
     "Apache Software License 2.0",
     "Not open source"
   ],
-  "python_version": ["3.12", "3.13"]
+  "python_version": ["3.11", "3.12", "3.13"]
 }

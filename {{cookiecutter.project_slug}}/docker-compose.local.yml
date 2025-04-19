@@ -1,0 +1,16 @@
+version: '3'
+
+services:
+  django:
+    build:
+      context: .
+      dockerfile: ./compose/local/django/Dockerfile
+    image: {{ cookiecutter.project_slug }}_django
+    container_name: {{ cookiecutter.project_slug }}_django
+    volumes:
+      - .:/app:z
+    env_file:
+      - ./.env
+    ports:
+      - "${DJANGO_PORT:-8000}:8000"
+    command: /start
