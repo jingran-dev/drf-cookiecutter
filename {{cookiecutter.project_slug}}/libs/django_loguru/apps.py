@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
-from lib.django_loguru.setup import setup_logging
+from libs.django_loguru.setup import setup_logging
 
 
 class DjangoLoguruConfig(AppConfig):

@@ -1,6 +1,6 @@
 {
-  "project_name": "DRF Project",
-  "project_slug": "{{ cookiecutter.project_name.lower()|replace(' ', '_')|replace('-', '_')|replace('.', '_')|trim() }}",
+  "project_name": "My DRF Project",
+  "project_slug": "{{ cookiecutter.project_name.lower()|replace(' ', '-')|replace('.', '-')|trim() }}",
   "description": "Django REST Framework API Project",
   "author_name": "Developer",
   "email": "example@example.com",

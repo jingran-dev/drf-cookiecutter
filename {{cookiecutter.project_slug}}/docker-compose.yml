@@ -1,0 +1,35 @@
+version: '3'
+
+volumes:
+  {{ cookiecutter.project_slug }}_postgres_data: {}
+  {{ cookiecutter.project_slug }}_postgres_data_backups: {}
+
+services:
+  django:
+    build:
+      context: .
+      dockerfile: ./compose/local/django/Dockerfile
+    image: {{ cookiecutter.project_slug }}_django
+    container_name: {{ cookiecutter.project_slug }}_django
+    depends_on:
+      - postgres
+    volumes:
+      - .:/app:z
+    env_file:
+      - ./.envs/.django
+      - ./.envs/.postgres
+    ports:
+      - "8000:8000"
+    command: /start
+
+  postgres:
+    build:
+      context: .
+      dockerfile: ./compose/production/postgres/Dockerfile
+    image: {{ cookiecutter.project_slug }}_postgres
+    container_name: {{ cookiecutter.project_slug }}_postgres
+    volumes:
+      - {{ cookiecutter.project_slug }}_postgres_data:/var/lib/postgresql/data
+      - {{ cookiecutter.project_slug }}_postgres_data_backups:/backups
+    env_file:
+      - ./.envs/.postgres

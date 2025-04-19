@@ -23,13 +23,13 @@ if settings.SHOW_API_DOCS:
         # Swagger UI
         path(
             "docs/",
-            SpectacularSwaggerView.as_view(url_name="api:api-schema"),
+            SpectacularSwaggerView.as_view(url_name="api-schema"),
             name="api-docs",
         ),
         # ReDoc UI
         path(
             "redoc/",
-            SpectacularRedocView.as_view(url_name="api:api-schema"),
+            SpectacularRedocView.as_view(url_name="api-schema"),
             name="api-redoc",
         ),
     ]

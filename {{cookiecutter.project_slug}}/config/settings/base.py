@@ -48,6 +48,7 @@ DJANGO_APPS = [
     "django.contrib.staticfiles",
 ]
 THIRD_PARTY_APPS = [
+    "django_extensions",
     "rest_framework",
     "drf_spectacular",
 ]
