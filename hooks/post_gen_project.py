@@ -16,7 +16,6 @@ def run_command(command, cwd=None):
         sys.exit(result.returncode)
 
 
-
 def process_license_files():
     """Process license files based on selected license"""
     license_type = "{{ cookiecutter.open_source_license }}"
@@ -27,8 +26,41 @@ def process_license_files():
         if os.path.exists(license_file):
             os.remove(license_file)
             print("Removed LICENSE file as project is not open source")
+    elif license_type == "GPLv3":
+        # For GPLv3, rename LICENSE to COPYING (GNU standard)
+        license_file = os.path.join(PROJECT_DIRECTORY, "LICENSE")
+        copying_file = os.path.join(PROJECT_DIRECTORY, "COPYING")
+        if os.path.exists(license_file):
+            os.rename(license_file, copying_file)
+            print("Renamed LICENSE to COPYING for GPLv3 license (GNU standard)")
+    elif license_type == "Apache Software License 2.0":
+        # For Apache, create an empty NOTICE file
+        notice_file = os.path.join(PROJECT_DIRECTORY, "NOTICE")
+        with open(notice_file, "w") as f:
+            f.write("# NOTICE file for Apache License 2.0\n\n")
+            f.write("This product includes software developed by\n")
+            f.write("{{ cookiecutter.author_name }} <{{ cookiecutter.email }}>\n")
+        print("Created NOTICE file for Apache License 2.0")
     else:
+        # MIT or BSD license - standard LICENSE file is fine
         print(f"License file created with {license_type} license")
+
+
+def remove_license_files():
+    """Remove license files that are not needed for the selected license"""
+    license_type = "{{ cookiecutter.open_source_license }}"
+    
+    # Remove COPYING file if not GPLv3
+    if license_type != "GPLv3":
+        copying_file = os.path.join(PROJECT_DIRECTORY, "COPYING")
+        if os.path.exists(copying_file):
+            os.remove(copying_file)
+    
+    # Remove NOTICE file if not Apache
+    if license_type != "Apache Software License 2.0":
+        notice_file = os.path.join(PROJECT_DIRECTORY, "NOTICE")
+        if os.path.exists(notice_file):
+            os.remove(notice_file)
 
 
 def generate_requirements_files():
@@ -65,6 +97,9 @@ def main():
     
     # Process license files
     process_license_files()
+    
+    # Remove unnecessary license files
+    remove_license_files()
     
     # Generate requirements files
     generate_requirements_files()

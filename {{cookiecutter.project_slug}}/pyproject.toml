@@ -2,14 +2,14 @@
 name = "{{ cookiecutter.project_slug }}"
 version = "{{ cookiecutter.version }}"
 description = "{{ cookiecutter.description }}"
+authors = [
+    {name = "{{ cookiecutter.author_name }}", email = "{{ cookiecutter.email }}"}
+]
 readme = "README.md"
 requires-python = ">={{ cookiecutter.python_version }}"
 {%- if cookiecutter.open_source_license != 'Not open source' %}
 license = "{{ cookiecutter.open_source_license }}"
 {%- endif %}
-authors = [
-    {name = "{{ cookiecutter.author_name }}", email = "{{ cookiecutter.email }}"}
-]
 classifiers = [
     "Development Status :: 3 - Alpha",
     "Environment :: Web Environment",
@@ -242,8 +242,11 @@ first = [
   "name",
   "version",
   "description",
+  "authors",
   "readme",
   "requires-python",
+  "license",
+  "classifiers",
   "dependencies"
 ]
 
