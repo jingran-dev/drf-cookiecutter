@@ -19,10 +19,11 @@ require: ## Check that prerequisites are installed.
 		exit 1; \
 		fi
 
-.PHONY: setup
-setup: require .setup_complete ## Set up the local development environment
+.PHONY: init
+init: require .setup_complete ## Set up the local development environment
 
-.setup_complete: uv.lock ## Internal helper to run the setup.
+.setup_complete: ## Internal helper to run the setup
+	uv venv --python {{ cookiecutter.python_version }} --seed && source .venv/bin/activate
 	uv sync
 	touch .setup_complete
 
@@ -52,12 +53,17 @@ test: ## Run unit tests
 cov: ## Run tests with coverage
 	pytest --cov=. --cov-report=term
 
+.PHONY: lines
+lines: ## Count lines of project code
+	find . -name "*.py" | xargs cat | wc -l
+
 .PHONY: cleanup
 cleanup: ## Clean up project files and caches
 	rm -rf .ruff_cache
 	rm -rf .pytest_cache
 	rm -rf .coverage
 	rm -rf htmlcov
+	rm -rf silk
 	find . -name '*.py[cod]' -delete
 	find . -name '__pycache__' -delete
 	find . -name '*.c' -delete

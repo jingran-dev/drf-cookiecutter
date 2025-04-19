@@ -4,11 +4,11 @@ set -o errexit
 set -o pipefail
 set -o nounset
 
-# N.B. If only .env files supported variable expansion...
-export DATABASE_URL="postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@${POSTGRES_HOST}:${POSTGRES_PORT}/${POSTGRES_DB}"
-
-wait-for-it "${POSTGRES_HOST}:${POSTGRES_PORT}" -t 60
-
->&2 echo 'PostgreSQL is available'
+# If DATABASE_URL is set, use it, otherwise use SQLite
+if [ -z "${DATABASE_URL:-}" ]; then
+  >&2 echo 'Using SQLite database'
+else
+  >&2 echo 'Using custom database configuration from DATABASE_URL'
+fi
 
 exec "$@"
