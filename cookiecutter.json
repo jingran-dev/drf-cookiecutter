@@ -5,6 +5,7 @@
   "author_name": "Developer",
   "email": "example@example.com",
   "version": "0.1.0",
+  "username_type": ["username", "email"],
   "open_source_license": [
     "MIT",
     "BSD",
