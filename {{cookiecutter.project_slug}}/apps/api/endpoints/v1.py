@@ -2,6 +2,7 @@ from django.urls import include, path
 
 app_name = "v1"
 
+
 endpoints = [
     path("", include("apps.api.urls")),
 ]

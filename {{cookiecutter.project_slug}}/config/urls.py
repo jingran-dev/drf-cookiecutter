@@ -11,7 +11,7 @@ from drf_spectacular.views import SpectacularAPIView, SpectacularRedocView, Spec
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("", include("apps.api.api_router")),
+    path("", include("apps.api.endpoints")),
 ]
 
 
