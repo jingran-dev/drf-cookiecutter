@@ -1,4 +1,4 @@
-exclude: '^docs/|/migrations/|devcontainer.json'
+exclude: "^docs/|/migrations/|devcontainer.json"
 default_stages: [pre-commit]
 
 default_language_version:
@@ -33,14 +33,14 @@ repos:
     rev: v4.0.0-alpha.8
     hooks:
       - id: prettier
-        args: ['--tab-width', '2', '--single-quote']
-        exclude: 'templates/'
+        args: ["--tab-width", "2", "--single-quote"]
+        exclude: "templates/"
 
   - repo: https://github.com/adamchainz/django-upgrade
-    rev: '1.22.2'
+    rev: "1.22.2"
     hooks:
       - id: django-upgrade
-        args: ['--target-version', '5.0']
+        args: ["--target-version", "5.0"]
 
   # Run the Ruff linter.
   - repo: https://github.com/astral-sh/ruff-pre-commit
@@ -49,7 +49,7 @@ repos:
       # Linter
       - id: ruff
         args: [--fix, --exit-non-zero-on-fix]
-        
+
   # Use uv to manage dependencies and requirements files
   - repo: https://github.com/astral-sh/uv-pre-commit
     rev: 0.6.14
@@ -59,13 +59,39 @@ repos:
       # Update requirements files
       - id: uv-export
         name: Update base requirements
-        args: [--no-hashes, --no-header, --output-file, requirements/base.txt, --no-group, dev, --no-group, prod]
+        args:
+          [
+            --no-hashes,
+            --no-header,
+            --output-file,
+            requirements/base.txt,
+            --no-group,
+            dev,
+            --no-group,
+            prod,
+          ]
       - id: uv-export
         name: Update development requirements
-        args: [--no-hashes, --no-header, --output-file, requirements/develop.txt, --group, dev]
+        args:
+          [
+            --no-hashes,
+            --no-header,
+            --output-file,
+            requirements/develop.txt,
+            --group,
+            dev,
+          ]
       - id: uv-export
         name: Update production requirements
-        args: [--no-hashes, --no-header, --output-file, requirements/production.txt, --group, prod]
+        args:
+          [
+            --no-hashes,
+            --no-header,
+            --output-file,
+            requirements/production.txt,
+            --group,
+            prod,
+          ]
       # Formatter
       - id: ruff-format
 
@@ -74,6 +100,11 @@ repos:
     hooks:
       - id: djlint-reformat-django
       - id: djlint-django
+
+  - repo: https://github.com/psf/black
+    rev: 25.1.0
+    hooks:
+      - id: black
 
 # sets up .pre-commit-ci.yaml to ensure pre-commit dependencies stay up to date
 ci:

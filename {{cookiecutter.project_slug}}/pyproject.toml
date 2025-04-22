@@ -190,14 +190,14 @@ select = [
   "EM",
   "EXE",
   "FA",
-  'ISC',
+  "ISC",
   "ICN",
   "G",
-  'INP',
-  'PIE',
+  "INP",
+  "PIE",
   "T20",
-  'PYI',
-  'PT',
+  "PYI",
+  "PT",
   "Q",
   "RSE",
   "RET",
@@ -225,6 +225,10 @@ select = [
 
 [tool.ruff.lint.isort]
 force-single-line = true
+
+[tool.black]
+line-length = 119
+target-version = "py{{ cookiecutter.python_version|replace('.', '') }}"
 
 # ==== tomlsort ====
 [tool.tomlsort]
