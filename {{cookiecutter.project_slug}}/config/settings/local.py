@@ -12,16 +12,6 @@ ALLOWED_HOSTS = ["*"]
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = "django-insecure-development-key-for-local-use-only"
 
-# DATABASE
-# ------------------------------------------------------------------------------
-# https://docs.djangoproject.com/en/dev/ref/settings/#databases
-DATABASES = {
-    "default": env.db(
-        "DATABASE_URL",
-        default=f"sqlite:///{BASE_DIR}/db.sqlite3",
-    )
-}
-
 # Django Debug Toolbar
 # ------------------------------------------------------------------------------
 # https://django-debug-toolbar.readthedocs.io/en/latest/installation.html#prerequisites

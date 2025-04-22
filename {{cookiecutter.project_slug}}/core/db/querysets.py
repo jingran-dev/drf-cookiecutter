@@ -1,3 +1,4 @@
+from django.db.models import F
 from django.db.models.query import QuerySet
 from django.utils import timezone
 
@@ -9,15 +10,16 @@ class SoftDeleteQuerySet(QuerySet):
 
     def delete(self):
         """Soft delete all records in the queryset"""
-        return self.update(is_deleted=True, deleted_at=timezone.now(), updated_at=timezone.now())
+        return self.update(
+            is_deleted=True,
+            id_copy=F("pk"),
+            deleted_at=timezone.now(),
+            updated_at=timezone.now(),
+        )
 
     def hard_delete(self):
         """Permanently delete all records in the queryset"""
         return super().delete()
-
-    def restore(self):
-        """Restore all soft-deleted records in the queryset"""
-        return self.update(is_deleted=False, deleted_at=None, updated_at=timezone.now())
 
     def bulk_create(  # noqa: PLR0913
         self,
@@ -59,3 +61,15 @@ class SoftDeleteQuerySet(QuerySet):
             fields = [*fields, "updated_at"]
 
         return super().bulk_update(objs, fields, batch_size=batch_size)
+
+
+class AllQuerySet(QuerySet):
+    """
+    QuerySet for all records management
+    """
+
+    def restore(self):
+        """Restore all soft-deleted records in the queryset"""
+        return self.update(
+            is_deleted=False, id_copy="", deleted_at=None, updated_at=timezone.now()
+        )

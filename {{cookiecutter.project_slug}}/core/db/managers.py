@@ -3,7 +3,7 @@ from django.db import transaction
 from django.db.models.query import QuerySet
 from django.utils import timezone
 
-from core.db.querysets import SoftDeleteQuerySet
+from core.db.querysets import SoftDeleteQuerySet, AllQuerySet
 
 
 class ActiveManager(models.Manager):
@@ -45,7 +45,7 @@ class AllObjectsManager(models.Manager):
     """
 
     def get_queryset(self):
-        return QuerySet(self.model, using=self._db)
+        return AllQuerySet(self.model, using=self._db)
 
     def deleted(self):
         """Return only deleted records"""
