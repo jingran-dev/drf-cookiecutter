@@ -5,7 +5,7 @@ from pathlib import Path
 from django.conf import settings
 from loguru import logger
 
-from libs.django_loguru.handlers import LoguruHandler
+from libs.logging.handlers import LoguruHandler
 
 
 def setup_logging():

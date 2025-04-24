@@ -46,7 +46,7 @@ THIRD_PARTY_APPS = [
 LOCAL_APPS = [
     "core.auth",
     "apps.api",
-    "libs.django_loguru",
+    "libs.logging",
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
