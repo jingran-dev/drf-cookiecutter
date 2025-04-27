@@ -37,22 +37,24 @@ repos:
         exclude: "templates/"
 
   - repo: https://github.com/adamchainz/django-upgrade
-    rev: "1.22.2"
+    rev: "1.24.0"
     hooks:
       - id: django-upgrade
         args: ["--target-version", "5.0"]
 
   # Run the Ruff linter.
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.8.4
+    rev: v0.11.7
     hooks:
       # Linter
       - id: ruff
         args: [--fix, --exit-non-zero-on-fix]
+      # Formatter
+      - id: ruff-format
 
   # Use uv to manage dependencies and requirements files
   - repo: https://github.com/astral-sh/uv-pre-commit
-    rev: 0.6.14
+    rev: 0.6.17
     hooks:
       # Update uv.lock file when pyproject.toml changes
       - id: uv-lock
@@ -92,8 +94,6 @@ repos:
             --group,
             prod,
           ]
-      # Formatter
-      - id: ruff-format
 
   - repo: https://github.com/Riverside-Healthcare/djLint
     rev: v1.36.4
@@ -105,6 +105,11 @@ repos:
     rev: 25.1.0
     hooks:
       - id: black
+
+  - repo: https://github.com/tox-dev/pyproject-fmt
+    rev: "v2.5.1"
+    hooks:
+      - id: pyproject-fmt
 
 # sets up .pre-commit-ci.yaml to ensure pre-commit dependencies stay up to date
 ci:

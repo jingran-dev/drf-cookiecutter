@@ -1,7 +1,119 @@
 [project]
 name = "drf-cookiecutter"
 version = "0.1.0"
-description = "Add your description here"
+description = "A Cookiecutter template for creating production-ready Django REST Framework projects quickly."
 readme = "README.md"
-requires-python = ">=3.13"
-dependencies = []
+keywords = [
+  "cookiecutter",
+  "django",
+  "django-rest-framework",
+  "drf",
+  "project template",
+  "scaffolding",
+  "skeleton",
+]
+license = { text = "MIT" }
+authors = [
+  { name = "Your Name", email = "your.email@example.com" },
+]
+requires-python = ">=3.11"
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Environment :: Console",
+  "Framework :: Django",
+  "Framework :: Django :: 5.2",
+  "Intended Audience :: Developers",
+  "License :: OSI Approved :: MIT License",
+  "Natural Language :: English",
+  "Programming Language :: Python",
+  "Programming Language :: Python :: 3 :: Only",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Programming Language :: Python :: Implementation :: CPython",
+  "Topic :: Software Development",
+]
+dependencies = [
+  "binaryornot==0.4.4",
+  "cookiecutter==2.6",
+  "django-upgrade==1.21",
+  "djlint==1.35.2",
+  "gitpython==3.1.43",
+  "jinja2==3.1.4",
+  "pre-commit==3.8",
+  "pytest==8.3.3",
+  "pytest-cookies==0.7",
+  "pytest-instafail==0.5",
+  "pytest-xdist==3.6.1",
+  "pyyaml==6.0.2",
+  "requests==2.32.3",
+  "ruff==0.7",
+  "sh==2.0.7; sys_platform!='win32'",
+  "tox==4.21.2",
+  "tox-uv>=1.11.2",
+]
+urls = { Repository = "https://github.com/yourusername/drf-cookiecutter" }
+
+[dependency-groups]
+docs = [
+  "myst-parser>=4",
+  "sphinx>=8.0.2",
+  "sphinx-autobuild>=2024.10.3",
+  "sphinx-rtd-theme>=3",
+]
+
+[tool.black]
+line-length = 119
+target-version = [
+  'py311',
+  'py312',
+  'py313',
+]
+
+[tool.ruff]
+target-version = "py313"
+
+line-length = 119
+lint.select = [ "A", "ARG", "B", "C4", "E", "F", "I", "N", "SIM", "UP" ]
+lint.ignore = [ "A003" ]
+lint.flake8-tidy-imports.ban-relative-imports = "all"
+lint.isort.known-first-party = [ "tests", "hooks" ]
+
+[tool.isort]
+profile = "black"
+line_length = 119
+known_first_party = [
+  "tests",
+  "scripts",
+  "hooks",
+]
+
+[tool.pytest.ini_options]
+addopts = "-v --tb=short"
+norecursedirs = [
+  ".tox",
+  ".git",
+  "*/migrations/*",
+  "*/static/*",
+  "docs",
+  "venv",
+  "*/{{cookiecutter.project_slug}}/*",
+]
+
+[tool.djlint]
+blank_line_after_tag = "load,extends"
+close_void_tags = true
+format_css = true
+format_js = true
+ignore = "H006,H030,H031"
+ignore_blocks = "raw"
+include = "H017,H035"
+indent = 2
+max_line_length = 119
+profile = "jinja"
+
+[tool.djlint.css]
+indent_size = 2
+
+[tool.djlint.js]
+indent_size = 2

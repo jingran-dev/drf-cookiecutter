@@ -14,7 +14,7 @@ classifiers = [
     "Development Status :: 3 - Alpha",
     "Environment :: Web Environment",
     "Framework :: Django",
-    "Framework :: Django :: {{ cookiecutter.python_version }}",
+    "Framework :: Django :: 5.2",
     "Intended Audience :: Developers",
     "Programming Language :: Python",
     "Programming Language :: Python :: {{ cookiecutter.python_version }}",
@@ -33,7 +33,7 @@ classifiers = [
 {%- endif %}
 ]
 dependencies = [
-  "django>=5.1.7",
+  "django>=5.2.0",
   "django-environ>=0.12.0",
   "django-model-utils>=5.0.0",
   "django-extensions>=4.1.0",
@@ -62,7 +62,6 @@ prod = [
 
 ]
 
-# ==== ruff ====
 [tool.ruff.lint]
 exclude = ["manage.py"]
 # The fixes in extend-unsafe-fixes will require
@@ -142,7 +141,6 @@ force-single-line = true
 line-length = 119
 target-version = "py{{ cookiecutter.python_version|replace('.', '') }}"
 
-# ==== djLint ====
 [tool.djlint]
 blank_line_after_tag = "load,extends"
 close_void_tags = true
@@ -164,7 +162,6 @@ indent_size = 2
 [tool.djlint.js]
 indent_size = 2
 
-# ==== mypy ====
 [tool.mypy]
 check_untyped_defs = true
 ignore_missing_imports = true
@@ -182,7 +179,6 @@ ignore_errors = true
 # Django migrations should not produce any errors:
 module = "*.migrations.*"
 
-# ==== pytest ====
 [tool.pytest]
 
 [tool.pytest.ini_options]
@@ -209,7 +205,6 @@ extend-exclude = [
 line-length = 119
 target-version = "py{{ cookiecutter.python_version|replace('.', '') }}"
 
-# ==== coverage ====
 [tool.coverage]
 
 [tool.coverage.report]
@@ -232,7 +227,6 @@ omit = [
 ]
 source = ["core"]
 
-# ==== tomlsort ====
 [tool.tomlsort]
 all = false
 in_place = true
