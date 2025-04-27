@@ -48,6 +48,7 @@ SILKY_AUTHENTICATION = False
 SILKY_AUTHORISATION = False
 SILKY_META = True  # Include metadata like request headers
 SILKY_PYTHON_PROFILER_RESULT_PATH = BASE_DIR / "silk"
-if not os.path.exists(SILKY_PYTHON_PROFILER_RESULT_PATH):
-    os.makedirs(SILKY_PYTHON_PROFILER_RESULT_PATH)
+SILKY_PYTHON_PROFILER_RESULT_PATH.mkdir(parents=True, exist_ok=True)
 
+# API Documentation
+SHOW_API_DOCS = True

@@ -40,6 +40,8 @@ dependencies = [
   "djangorestframework>=3.15.0",
   "drf-spectacular>=0.27.1",
   "loguru>=0.7.3",
+  "djoser>=2.3.1",
+  "djangorestframework-simplejwt>=5.3.1",
 ]
 
 [dependency-groups]
@@ -59,96 +61,6 @@ dev = [
 prod = [
 
 ]
-
-# ==== coverage ====
-[tool.coverage]
-
-[tool.coverage.report]
-exclude_lines = [
-  "pragma: no cover",
-  "def __repr__",
-  "def __str__",
-  "raise NotImplementedError",
-  "if __name__ == .__main__.:",
-  "if TYPE_CHECKING:"
-]
-
-[tool.coverage.run]
-omit = [
-  "*/migrations/*",
-  "*/protos/*",
-  "*/tests/*",
-  "*/admin.py",
-  "*/apps.py"
-]
-source = ["core"]
-
-[tool.django-stubs]
-django_settings_module = "config.settings.test"
-
-# ==== djLint ====
-[tool.djlint]
-blank_line_after_tag = "load,extends"
-close_void_tags = true
-format_css = true
-format_js = true
-# TODO: remove T002 when fixed https://github.com/djlint/djLint/issues/687
-ignore = "H006,H030,H031,T002"
-include = "H017,H035"
-indent = 2
-max_line_length = 119
-profile = "django"
-
-[tool.djlint.css]
-indent_size = 2
-
-[tool.djlint.js]
-indent_size = 2
-
-# ==== mypy ====
-[tool.mypy]
-check_untyped_defs = true
-ignore_missing_imports = true
-plugins = [
-  "mypy_django_plugin.main",
-  "mypy_drf_plugin.main"
-]
-python_version = "{{ cookiecutter.python_version }}"
-warn_redundant_casts = true
-warn_unused_configs = true
-warn_unused_ignores = true
-
-[[tool.mypy.overrides]]
-ignore_errors = true
-# Django migrations should not produce any errors:
-module = "*.migrations.*"
-
-# ==== pytest ====
-[tool.pytest]
-
-[tool.pytest.ini_options]
-addopts = """
-    --no-migrations
-    -v
-    -n auto
-    --reuse-db
-    -x
-    --tb=short
-"""
-env = [
-  "DJANGO_READ_DOT_ENV_FILE=false",
-  "DJANGO_SETTINGS_MODULE=config.settings.test"
-]
-python_files = ["test_*.py", "*_test.py", "tests.py"]
-
-[tool.ruff]
-# Exclude a variety of commonly ignored directories.
-extend-exclude = [
-  "*/migrations/*.py",
-  "staticfiles/*"
-]
-line-length = 119
-target-version = "py{{ cookiecutter.python_version|replace('.', '') }}"
 
 # ==== ruff ====
 [tool.ruff.lint]
@@ -229,6 +141,96 @@ force-single-line = true
 [tool.black]
 line-length = 119
 target-version = "py{{ cookiecutter.python_version|replace('.', '') }}"
+
+# ==== djLint ====
+[tool.djlint]
+blank_line_after_tag = "load,extends"
+close_void_tags = true
+format_css = true
+format_js = true
+# TODO: remove T002 when fixed https://github.com/djlint/djLint/issues/687
+ignore = "H006,H030,H031,T002"
+include = "H017,H035"
+indent = 2
+max_line_length = 119
+profile = "django"
+
+[tool.django-stubs]
+django_settings_module = "config.settings.test"
+
+[tool.djlint.css]
+indent_size = 2
+
+[tool.djlint.js]
+indent_size = 2
+
+# ==== mypy ====
+[tool.mypy]
+check_untyped_defs = true
+ignore_missing_imports = true
+plugins = [
+  "mypy_django_plugin.main",
+  "mypy_drf_plugin.main"
+]
+python_version = "{{ cookiecutter.python_version }}"
+warn_redundant_casts = true
+warn_unused_configs = true
+warn_unused_ignores = true
+
+[[tool.mypy.overrides]]
+ignore_errors = true
+# Django migrations should not produce any errors:
+module = "*.migrations.*"
+
+# ==== pytest ====
+[tool.pytest]
+
+[tool.pytest.ini_options]
+addopts = """
+    --no-migrations
+    -v
+    -n auto
+    --reuse-db
+    -x
+    --tb=short
+"""
+env = [
+  "DJANGO_READ_DOT_ENV_FILE=false",
+  "DJANGO_SETTINGS_MODULE=config.settings.test"
+]
+python_files = ["test_*.py", "*_test.py", "tests.py"]
+
+[tool.ruff]
+# Exclude a variety of commonly ignored directories.
+extend-exclude = [
+  "*/migrations/*.py",
+  "staticfiles/*"
+]
+line-length = 119
+target-version = "py{{ cookiecutter.python_version|replace('.', '') }}"
+
+# ==== coverage ====
+[tool.coverage]
+
+[tool.coverage.report]
+exclude_lines = [
+  "pragma: no cover",
+  "def __repr__",
+  "def __str__",
+  "raise NotImplementedError",
+  "if __name__ == .__main__.:",
+  "if TYPE_CHECKING:"
+]
+
+[tool.coverage.run]
+omit = [
+  "*/migrations/*",
+  "*/protos/*",
+  "*/tests/*",
+  "*/admin.py",
+  "*/apps.py"
+]
+source = ["core"]
 
 # ==== tomlsort ====
 [tool.tomlsort]
