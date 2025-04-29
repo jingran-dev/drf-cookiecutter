@@ -27,7 +27,7 @@ pip install cookiecutter
 Then generate a new DRF project:
 
 ```bash
-cookiecutter git@github.com:jingran-dev/drf-cookiecutter.git
+cookiecutter https://github.com/jingran-dev/drf-cookiecutter
 ```
 
 You'll be prompted for some values. Provide them, and then a Django REST Framework project will be created for you.
